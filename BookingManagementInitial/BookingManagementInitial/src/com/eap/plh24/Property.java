@@ -13,6 +13,10 @@ public abstract class Property {
         this.isAvailable = true;
     }
 
+    public Property(String location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
