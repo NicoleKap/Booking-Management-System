@@ -25,6 +25,7 @@ public class Reservation {
         this.property = property;
     }
 
+
     @Override
     public String toString() {
         return "Reservation{\n" +

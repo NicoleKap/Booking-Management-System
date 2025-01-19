@@ -20,4 +20,27 @@ public class Hotel extends Property{
 		this.location = location;
     }
 
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	public int getAvailableRooms() {
+		return availableRooms;
+	}
+
+	public void setAvailableRooms(int availableRooms) {
+		this.availableRooms = availableRooms;
+	}
+
+	public boolean isBreakfast() {
+		return breakfast;
+	}
+
+	public void setBreakfast(boolean breakfast) {
+		this.breakfast = breakfast;
+	}
 }

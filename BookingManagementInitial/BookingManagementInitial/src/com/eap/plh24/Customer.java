@@ -16,4 +16,45 @@ public class Customer {
         //Θα πρέπει να ελέγουχμε τον τύπο του καταλύματος.
         //Εφόσον υπάρξει ενδιαφέρον, καλό θα ήταν να αφαιρείται από τη λίστα του πελάτη (δεχόμαστε ότι το σύστημα θα το "δεσμεύσει" για εμάς)
 
+
+	public Customer(String custID, String name, int creditCard, List<Property> interestedFor) {
+		this.custID = custID;
+		this.name = name;
+		this.creditCard = creditCard;
+		this.interestedFor = interestedFor;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCustID() {
+		return custID;
+	}
+
+	public void setCustID(String custID) {
+		this.custID = custID;
+	}
+
+	public int getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(int creditCard) {
+		this.creditCard = creditCard;
+	}
+
+	public List<Property> getInterestedFor() {
+		return interestedFor;
+	}
+
+	public void setInterestedFor(List<Property> interestedFor) {
+		this.interestedFor = interestedFor;
+	}
+
+
 }

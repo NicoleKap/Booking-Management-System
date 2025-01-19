@@ -10,4 +10,20 @@ public class Apartment{
     public Apartment(String location){
 
     }
+
+    public int getSquareMeters() {
+        return squareMeters;
+    }
+
+    public void setSquareMeters(int squareMeters) {
+        this.squareMeters = squareMeters;
+    }
+
+    public boolean isGarden() {
+        return garden;
+    }
+
+    public void setGarden(boolean garden) {
+        this.garden = garden;
+    }
 }
