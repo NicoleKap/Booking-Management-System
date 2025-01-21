@@ -1,17 +1,16 @@
 package com.eap.plh24;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
-	private String custID;
+	private String customID;
 	private String name;
 	private int creditCard;
 	private List<Property> interestedFor;
 
 
-	public Customer(String custID, String name, int creditCard, List<Property> interestedFor) {
-		this.custID = custID;
+	public Customer(String customID, String name, int creditCard, List<Property> interestedFor) {
+		this.customID = customID;
 		this.name = name;
 		this.creditCard = creditCard;
 		this.interestedFor = interestedFor;
@@ -25,12 +24,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getCustID() {
-		return custID;
+	public String getCustomID() {
+		return customID;
 	}
 
-	public void setCustID(String custID) {
-		this.custID = custID;
+	public void setCustomID(String customID) {
+		this.customID = customID;
 	}
 
 	public int getCreditCard() {
@@ -49,12 +48,23 @@ public class Customer {
 		this.interestedFor = interestedFor;
 	}
 
-	//Για την υλοποίηση της μεθόδου isInterested (Ερώτημα 2.Β) σημειώνονται τα ακόλουθα (ενδεικτικά για την υποβοήθηση του φοιτητή):
-	//Θα πρέπει να ελέγχουμε αν το εκάστοτε κατάλυμα, είναι στη λίστα αυτών που ενδιαφέρουν τον πελάτη. Για αυτό:
-	//Θα πρέπει να ελέγχουμε αν εξακουθεί να είναι διαθέσιμο (αφού όλοι οι πελάτες ενημερώνονται..)
-	//Θα πρέπει να ελέγχουμε την τοποθεσία
-	//Θα πρέπει να ελέγουχμε τον τύπο του καταλύματος.
-	//Εφόσον υπάρξει ενδιαφέρον, καλό θα ήταν να αφαιρείται από τη λίστα του πελάτη (δεχόμαστε ότι το σύστημα θα το "δεσμεύσει" για εμάς)
+	public List<Property> addInterested(Property property) {
+		interestedFor.add(property);
+        return interestedFor;
+    }
 
+	// This method is called when a customer wants to book a room
+	// It returns true if the property details meet the customer requirements. Otherwise, it returns false
+
+	public boolean isInterested(Property property) {
+		if (property.isAvailable)
+			for(Property interestedProperty : interestedFor) {
+				if(property.getLocation().equals(interestedProperty.getLocation())) {
+					if(property.getClass().equals(interestedProperty.getClass()))
+						return true;
+				}
+			}
+        return false;
+    }
 
 }

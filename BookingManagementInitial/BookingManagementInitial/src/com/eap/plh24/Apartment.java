@@ -1,13 +1,15 @@
 package com.eap.plh24;
 
-public class Apartment{
+public class Apartment extends Property{
     private int squareMeters;
     private boolean garden;
 
     public Apartment(String name, String location, int cost, int squareMeters, boolean garden) {
+        super(name, location, cost);
 
     }
     public Apartment(String location){
+        super(location);
 
     }
 
