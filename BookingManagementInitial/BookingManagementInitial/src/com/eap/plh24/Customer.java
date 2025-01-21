@@ -2,14 +2,14 @@ package com.eap.plh24;
 
 import java.util.List;
 
-public class Customer {
+public class Customer implements BookingListener{
 	private String customID;
 	private String name;
 	private int creditCard;
 	private List<Property> interestedFor;
 
 
-	public Customer(String customID, String name, int creditCard) {
+	public Customer (String customID, String name, int creditCard) {
 		this.customID = customID;
 		this.name = name;
 		this.creditCard = creditCard;
@@ -66,5 +66,10 @@ public class Customer {
 			}
         return false;
     }
+
+	@Override
+	public void makeReservation(Property property) {
+		System.out.println("Make a reservation at " + property);
+	}
 
 }

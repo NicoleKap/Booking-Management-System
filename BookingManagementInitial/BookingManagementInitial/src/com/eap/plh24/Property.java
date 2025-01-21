@@ -51,10 +51,6 @@ public abstract class Property {
 
     @Override
     public String toString() {
-        return "Property{" +
-                "cost=" + cost +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                '}';
+        return "Property{cost=%d, name='%s', location='%s'}".formatted(cost, name, location);
     }
 }
