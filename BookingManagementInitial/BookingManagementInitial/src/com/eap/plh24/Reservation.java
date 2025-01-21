@@ -27,9 +27,6 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{\n" +
-                "Customer=" + customer +
-                ",\nProperty=" + property +
-                '}';
+        return id + " Reservation{\nCustomer=%s,\nProperty=%s}".formatted(customer, property);
     }
 }

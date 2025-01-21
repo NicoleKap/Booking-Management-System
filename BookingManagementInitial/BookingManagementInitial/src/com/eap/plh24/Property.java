@@ -49,8 +49,10 @@ public abstract class Property {
         isAvailable = available;
     }
 
+
+
     @Override
     public String toString() {
-        return "Property{cost=%d, name='%s', location='%s'}".formatted(cost, name, location);
+        return "cost=%d, name='%s', location='%s'".formatted(cost, name, location);
     }
 }

@@ -69,7 +69,11 @@ public class Customer implements BookingListener{
 
 	@Override
 	public void makeReservation(Property property) {
-		System.out.println("Make a reservation at " + property);
+        System.out.printf("Make a reservation at %s%n", property);
 	}
 
+	@Override
+	public String toString() {
+		return "Customer with id: '%s', '%s', %d}".formatted(customID, name, creditCard);
+	}
 }

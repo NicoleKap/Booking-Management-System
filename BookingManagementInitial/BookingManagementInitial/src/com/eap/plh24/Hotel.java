@@ -5,14 +5,18 @@ import java.util.List;
 
 public class Hotel extends Property{
 	private List<Room> rooms = new ArrayList<>(); // The hotel room list
+	private int numberOfRooms;
 	private int availableRooms;
 	private boolean breakfast;
+	int usedRooms = 0;
 
-	public Hotel(String name, String location, int cost, int numberOfRooms, boolean breakfast) {
+	public Hotel(String name, String location, int cost, int numberOfRooms, int availableRooms, boolean breakfast) {
         super(name, location, cost);
 		this.name = name;
 		this.location = location;
 		this.cost = cost;
+		this.numberOfRooms = numberOfRooms;
+		usedRooms = numberOfRooms - availableRooms;
     }
 
 	public Hotel(String location) {
@@ -42,5 +46,15 @@ public class Hotel extends Property{
 
 	public void setBreakfast(boolean breakfast) {
 		this.breakfast = breakfast;
+	}
+
+	public void booked() {
+		if(availableRooms == 0)
+			setAvailable(false);
+	}
+
+	@Override
+	public String toString() {
+		return "Hotel{name=%s, location= %s, breakfast=%s, usedRooms=%d, cost= %d}".formatted(super.name, super.location, breakfast, usedRooms,super.cost);
 	}
 }
