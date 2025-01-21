@@ -9,7 +9,7 @@ public class Customer {
 	private List<Property> interestedFor;
 
 
-	public Customer(String customID, String name, int creditCard, List<Property> interestedFor) {
+	public Customer(String customID, String name, int creditCard) {
 		this.customID = customID;
 		this.name = name;
 		this.creditCard = creditCard;

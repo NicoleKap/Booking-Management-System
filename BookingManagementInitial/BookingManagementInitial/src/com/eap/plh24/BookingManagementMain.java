@@ -9,11 +9,20 @@ public class BookingManagementMain {
     static List<Property> allProperties;
     static List<Reservation> reservationList;
     static List<BookingListener> bookingListeners;
+    static List<Customer> allCustomers;
     public static void main(String[] args) {
-        //Δημιουργία πελατών
+
+        //Customers creation
+
+        Customer customer = new Customer("1","Nikoleta Kapsali",123566);
+
         //Τοποθέτηση των πελατών στη λίστα των ενδιαφερομένων
 
+
+
         //Δημιουργία Καταλυμάτων
+
+        Hotel hotel = new Hotel("All blue","Tokyo",120,100,true);
 
         //Εκτύπωση κρατήσεων
 
@@ -21,8 +30,8 @@ public class BookingManagementMain {
 
     }
 
-    static void addBookingListener() {
-
+    static void addBookingListener(Customer customer) {
+        allCustomers.add(customer);
     }
     //Η εν λόγω μέθοδος είναι υπεύθυνη για να ενημερώνει όλους τους ενδιαφερόμενους πελάτες για την προσθήκη ενός νέου καταλύματος στο σύστημα
     //Εάν στη μέθοδο αυτή βρεθεί ενδιαφερόμενος πελάτης, την ίδια στιγμή, πραγματοποιείται η κράτηση, κάνοντας κλήση
