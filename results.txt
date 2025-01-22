@@ -1,0 +1,18 @@
+1. Reservation{
+Customer=Customer with id: 'cust2', 'John Pappas', 321456789},
+Property=Hotel{name=Zeus, location= Crete, breakfast=true, usedRooms=1, cost= 100}}
+2. Reservation{
+Customer=Customer with id: 'cust1', 'Eftihios Alepis', 123456789},
+Property=Hotel{name=Xenia, location= Peloponnese, breakfast=false, usedRooms=3, cost= 130}}
+3. Reservation{
+Customer=Customer with id: 'cust2', 'John Pappas', 321456789},
+Property=Hotel{name=Xenia, location= Peloponnese, breakfast=false, usedRooms=3, cost= 130}}
+4. Reservation{
+Customer=Customer with id: 'cust3', 'Eleni Maniou', 456789123},
+Property=Hotel{name=Xenia, location= Peloponnese, breakfast=false, usedRooms=3, cost= 130}}
+5. Reservation{
+Customer=Customer with id: 'cust1', 'Eftihios Alepis', 123456789},
+Property=Apartment{name=Palas, location=Macedonia, garden=true, squareMeters=0 cost= 200}}
+6. Reservation{
+Customer=Customer with id: 'cust2', 'John Pappas', 321456789},
+Property=Apartment{name=Nestos, location=Thrace, garden=false, squareMeters=0 cost= 250}}

@@ -15,6 +15,7 @@ public class Hotel extends Property{
 		this.name = name;
 		this.location = location;
 		this.cost = cost;
+		this.breakfast = breakfast;
 		this.numberOfRooms = numberOfRooms;
 		usedRooms = numberOfRooms - availableRooms;
     }

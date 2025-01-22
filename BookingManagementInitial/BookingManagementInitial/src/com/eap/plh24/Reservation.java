@@ -3,6 +3,7 @@ package com.eap.plh24;
 public class Reservation {
     private Customer customer;
     private Property property;
+    private int id;
 
     public Reservation(Customer customer, Property property) {
         this.customer = customer;
@@ -25,8 +26,16 @@ public class Reservation {
         this.property = property;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return id + " Reservation{\nCustomer=%s,\nProperty=%s}".formatted(customer, property);
+        return id + ". Reservation{\nCustomer=%s,\nProperty=%s}".formatted(customer, property);
     }
 }

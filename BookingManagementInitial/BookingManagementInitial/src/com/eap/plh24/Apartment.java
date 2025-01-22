@@ -6,6 +6,7 @@ public class Apartment extends Property{
 
     public Apartment(String name, String location, int cost, int squareMeters, boolean garden) {
         super(name, location, cost);
+        this.garden = garden;
 
     }
     public Apartment(String location){

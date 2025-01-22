@@ -1,15 +1,17 @@
 package com.eap.plh24;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Customer implements BookingListener{
+public class Customer implements BookingListener {
 	private String customID;
 	private String name;
 	private int creditCard;
-	private List<Property> interestedFor;
+	private List<Property> interestedFor = new ArrayList<>();
+	private String preferredRegion;
+	private String preferredPropertyType;
 
-
-	public Customer (String customID, String name, int creditCard) {
+	public Customer(String customID, String name, int creditCard) {
 		this.customID = customID;
 		this.name = name;
 		this.creditCard = creditCard;
@@ -48,32 +50,50 @@ public class Customer implements BookingListener{
 		this.interestedFor = interestedFor;
 	}
 
-	public List<Property> addInterested(Property property) {
+	public void addInterested(Property property) {
 		interestedFor.add(property);
-        return interestedFor;
-    }
+	}
+
+	public String getPreferredRegion() {
+		return preferredRegion;
+	}
+
+	public void setPreferredRegion(String preferredRegion) {
+		this.preferredRegion = preferredRegion;
+	}
+
+	public String getPreferredPropertyType() {
+		return preferredPropertyType;
+	}
+
+	public void setPreferredPropertyType(String preferredPropertyType) {
+		this.preferredPropertyType = preferredPropertyType;
+	}
 
 	// This method is called when a customer wants to book a room
 	// It returns true if the property details meet the customer requirements. Otherwise, it returns false
 
 	public boolean isInterested(Property property) {
 		if (property.isAvailable)
-			for(Property interestedProperty : interestedFor) {
-				if(property.getLocation().equals(interestedProperty.getLocation())) {
-					if(property.getClass().equals(interestedProperty.getClass()))
+			for (Property interestedProperty : interestedFor) {
+				if (property.getLocation().equals(interestedProperty.getLocation())) {
+					if (property.getClass().equals(interestedProperty.getClass())) {
+						System.out.printf("The custumer %s with id %s is interested for a property at lacation %s%n", name, customID,property.getLocation());
 						return true;
+					}
 				}
 			}
-        return false;
-    }
-
-	@Override
-	public void makeReservation(Property property) {
-        System.out.printf("Make a reservation at %s%n", property);
+		System.out.printf("The custumer %s with id %s is interested for a property at lacation %s%n", name, customID,property.getLocation());
+		return false;
 	}
 
 	@Override
-	public String toString() {
+	public void makeReservation(Property property) {
+		System.out.printf("Make a reservation at %s%n", property);
+	}
+
+	@Override
+	public String toString () {
 		return "Customer with id: '%s', '%s', %d}".formatted(customID, name, creditCard);
 	}
 }

@@ -1,5 +1,8 @@
 package com.eap.plh24;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +18,8 @@ public class BookingManagementMain {
 
         //Customers Creation
 
-        Customer customer1 = new Customer("cust1", "John Pappas", 321456789);
-        Customer customer2 = new Customer("cust2", "Eftihios Alepis", 123456789);
+        Customer customer1 = new Customer("cust1", "Eftihios Alepis", 123456789);
+        Customer customer2 = new Customer("cust2", "John Pappas", 321456789);
         Customer customer3 = new Customer("cust3", "Eleni Maniou", 456789123);
 
         //Τοποθέτηση των πελατών στη λίστα των ενδιαφερομένων
@@ -25,32 +28,65 @@ public class BookingManagementMain {
         addBookingListener(customer2);
         addBookingListener(customer3);
 
+
+
         //Properties Creation
+
+        // 2 Hotels
 
         Hotel hotel1 = new Hotel("Zeus", "Crete", 100, 10, 9,true);
         Hotel hotel2 = new Hotel("Xenia", "Peloponnese", 130, 5, 2,false);
+
+        // 3 Apartments
+
         Apartment apartment1 = new Apartment("Palas", "Macedonia", 200, 100, true);
         Apartment apartment2 = new Apartment("Nestos", "Thrace", 250, 120, false);
+        Apartment apartment3 = new Apartment("Pegasus", "Peloponnese", 180, 80, false);
+
+        customer1.addInterested(hotel1);
 
         //Reservation print
 
-        addReservation(new Reservation(customer1, hotel1));
-        addReservation(new Reservation(customer2, hotel2));
+        addReservation(new Reservation(customer2, hotel1));
+        addReservation(new Reservation(customer1, hotel2));
         addReservation(new Reservation(customer2, hotel2)); // the same customer is trying to book the same property
-        addReservation(new Reservation(customer3, apartment1));
-        addReservation(new Reservation(customer1, apartment2));
+        addReservation(new Reservation(customer3, hotel2));
+        addReservation(new Reservation(customer1, apartment1));
+        addReservation(new Reservation(customer2,apartment2));
 
-        for (Reservation reservation: reservationList) {
-            System.out.println(reservation);
-        }
+       printReservations();
 
-        //Εκτύπωση συνολικού κόστους κρατήσεων πελατών
+        //Print the Total Cost of Reservations
 
-        System.out.println(calculateReservationCosts());
+        System.out.printf("Total cost: %s%n", calculateReservationCosts());
+
+        // Print the interestedFor
+
+        System.out.println("=====================================================================================================================");
+        customer1.addInterested(hotel2);
+        customer1.addInterested(apartment1);
+        customer1.isInterested(hotel2);
+        customer1.isInterested(apartment1);
+        System.out.println("=====================================================================================================================");
+        customer2.addInterested(hotel1);
+        customer2.isInterested(hotel2);
+        customer2.addInterested(apartment2);
+        customer2.isInterested(apartment2);
+        System.out.println("=====================================================================================================================");
+        customer3.addInterested(new Hotel("Thessalia"));
+        customer3.isInterested(new Hotel("Thessalia"));
+        customer3.addInterested(apartment3);
+        customer3.isInterested(apartment3);
+
 
     }
 
     static public void addReservation(Reservation reservation) {
+        int newId = 1;
+        if(!reservationList.isEmpty()) {
+            newId = reservationList.getLast().getId() + 1;
+        }
+        reservation.setId(newId);
         reservationList.add(reservation);
         Customer customer = reservation.getCustomer();
         customerBookingCounts.put(customer, customerBookingCounts.getOrDefault(customer, 0) + 1);
@@ -63,9 +99,9 @@ public class BookingManagementMain {
     static public void addProperty(Property property) {
         allProperties.add(property);
     }
-    //Η εν λόγω μέθοδος είναι υπεύθυνη για να ενημερώνει όλους τους ενδιαφερόμενους πελάτες για την προσθήκη ενός νέου καταλύματος στο σύστημα
-    //Εάν στη μέθοδο αυτή βρεθεί ενδιαφερόμενος πελάτης, την ίδια στιγμή, πραγματοποιείται η κράτηση, κάνοντας κλήση
-    //στη μέθοδο makeReservation, με τα στοιχεία του ενδιαφερόμενου πελάτη, καθώς και του καταλύματος
+    // This method is responsible for notifying all interested customers about the addition of a new property to the system.
+    // If an interested customer is found in this method, a reservation is made immediately,
+    // calling the makeReservation method with the details of the interested customer and the property.
 
     static void notifyListeners(Property newEntry){
         for (Customer customer : allCustomers) {
@@ -81,7 +117,6 @@ public class BookingManagementMain {
 
             }
         }
-
     }
 
     // This method is responsible for making a reservation for a property by a customer.
@@ -101,32 +136,42 @@ public class BookingManagementMain {
         }
     }
 
-    //Στη μέθοδο αυτή θέλουμε σύμφωνα με τα δεδομένα της άσκησης, αλλά και σύμφωνα με την ενδεικτική εκτύπωση,
-    //να εκτυπωθούν σε αρχείο και στην κονσόλα (System.out) οι κρατήσεις που έχουν γίνει στο σύστημα
+    // In this method, according to the exercise data and the sample printout,
+    // we want to print the reservations that have been made in the system to a file and to the console (System.out).
+
     static void printReservations(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("results.txt"))) {
+            for (Reservation reservation : reservationList) {
+                writer.write(reservation.toString());
+                writer.newLine();  // Every reservation in a new line
+            }
+        } catch (IOException e) {
+            System.err.printf("Error writing to the file: %s%n", e.getMessage());
+        }
+        // Print to the console
         for (Reservation reservation : reservationList) {
             System.out.println(reservation);
         }
     }
-    //Η μέθοδος αυτή, υπολογίζει και εκτυπώνει το συνολικό κόστος των κρατήσεων που έχουν πραγματοποιηθεί στο σύστημα.
-    //Θα χρησιμοποιήσετε τη λίστα reservationList.
-    //Uα πρέπει να ελέγξετε τον τύπο του καταλύματος της κράτησης, ώστε στην περίπτωση των ξενοδοχείων να συνυπολογίσετε τυχόν πρωινό,
-    //ενώ στην περίπτωση των διαμερισμάτων τυχόν κήπο.
-    //Επίσης, θα πρέπει να ελέγξετε πόσες κρατήσεις έχει κάνει ο κάθε πελάτης συνολικά στο σύστημα, ώστε να υπολογιστεί και τυχόν έκπτωση που δικαιούται
+    // This method calculates and prints the total cost of the reservations that have been made in the system.
+    // You will use the reservationList.
+    // You need to check the type of property for each reservation, so that in the case of hotels, any breakfast is included in the calculation,
+    // and in the case of apartments, any garden is considered.
+    // Also, you must check how many reservations each customer has made in total in the system to calculate any discount they are entitled to.
 
-    static double calculateReservationCosts(){
+    static double calculateReservationCosts() {
         double totalCost = 0;
-        for(Reservation reservation : reservationList) {
+        for (Reservation reservation : reservationList) {
             double cost = reservation.getProperty().getCost();
             Customer customer = reservation.getCustomer();
 
-            if(reservation.getProperty() instanceof Hotel){
-                if(((Hotel) reservation.getProperty()).isBreakfast()) {
+            if (reservation.getProperty() instanceof Hotel) {
+                if (((Hotel) reservation.getProperty()).isBreakfast()) {
                     cost += 10;
                 }
 
-            }else if(reservation.getProperty() instanceof Apartment){
-                if((((Apartment) reservation.getProperty()).isGarden())){
+            } else if (reservation.getProperty() instanceof Apartment) {
+                if ((((Apartment) reservation.getProperty()).isGarden())) {
                     cost += 20;
                 }
             }
@@ -136,8 +181,9 @@ public class BookingManagementMain {
                 discount = bookings >= 3 ? 0.20 : 0.10; // 20% for 3 or more reservations, 10% for 2 reservations
                 cost -= cost * discount;
             }
+            totalCost += cost;
         }
-        totalCost += totalCost;
+
         return totalCost;
     }
 
